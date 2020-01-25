@@ -21,7 +21,7 @@ var app = app || {};
 		events: {
 			'keypress #new-todo': 'createOnEnter',
 			'click #clear-completed': 'clearCompleted',
-			'click #toggle-all': 'toggleAllComplete'
+			'click #toggle-all': 'toggleAllComplete',
 		},
 
 		// At initialization we bind to the relevant events on the `Todos`
@@ -51,6 +51,7 @@ var app = app || {};
 		render: function () {
 			var completed = app.todos.completed().length;
 			var remaining = app.todos.remaining().length;
+			var priority = app.todos.priority().length;
 
 			if (app.todos.length) {
 				this.$main.show();
@@ -58,7 +59,8 @@ var app = app || {};
 
 				this.$footer.html(this.statsTemplate({
 					completed: completed,
-					remaining: remaining
+					remaining: remaining,
+					priority: priority
 				}));
 
 				this.$('#filters li a')
@@ -71,6 +73,7 @@ var app = app || {};
 			}
 
 			this.allCheckbox.checked = !remaining;
+			this.allCheckbox.checked = !priority;
 		},
 
 		// Add a single todo item to the list by creating a view for it, and
